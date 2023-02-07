@@ -8,12 +8,10 @@ namespace Lanugage.Content.SymbolTable
 {
     public interface IScope
     {
-        Scope getEnclosingScope();
+        IScope EnclosingScope { get; set; }
 
-        void setEnclosingScope(Scope scope);
+        void DefineSymbol(Symbol symbol);
 
-        void defineSymbol(Symbol symbol);
-
-        Symbol getSymbol(String name);
+        Symbol? GetSymbol(String name);
     }
 }

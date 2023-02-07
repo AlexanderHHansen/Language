@@ -8,49 +8,44 @@ namespace Lanugage.Content.SymbolTable
 {
     public class BaseScope : IScope
     {
-        public Scope enclosingScope { get; private set; }
+        public IScope? EnclosingScope { get; set; }
 
-        protected Dictionary<string, Symbol> symbols = new Dictionary<string, Symbol>();
+        public Dictionary<string, Symbol> Symbols { get; set; }
 
         //Only use this to create the global scope
         public BaseScope()
         {
+            Symbols = new Dictionary<string, Symbol>();
         }
 
-        public BaseScope(Scope enclosingScope)
+        public BaseScope(IScope enclosingScope)
         {
-            setEnclosingScope(enclosingScope);
+            Symbols = new Dictionary<string, Symbol>();
+            EnclosingScope = enclosingScope;
         }
 
-        public Scope getEnclosingScope()
+        public void DefineSymbol(Symbol symbol)
         {
-            return this.enclosingScope;
-        }
-
-        
-        public void setEnclosingScope(Scope scope)
-        {
-            this.enclosingScope = scope;
-        }
-
-        public void defineSymbol(Symbol symbol)
-        {
-            if (symbols.ContainsKey(symbol.Name)) {
+            if (Symbols.ContainsKey(symbol.Name)) {
                 throw new ArgumentException("duplicate symbol " + symbol.Name);
             }
-            symbols.Append(symbol.Name, symbol);
+            Symbols.Add(symbol.Name, symbol);
         }
 
-
-        public Symbol getSymbol(String name)
+        public Symbol? GetSymbol(string name)
         {
-            Symbol s = symbols.get(name);
-            if (s != null)
+            try
             {
+                Symbol s = Symbols[name];
                 return s;
             }
-            // if not here, check any enclosing scope
-            if (this.enclosingScope != null) return this.enclosingScope.getSymbol(name);
+            catch (Exception)
+            {
+                // symbol not in scope
+                // if not here, check any enclosing scope
+                if (EnclosingScope != null) return EnclosingScope.GetSymbol(name);
+            }
+            
             // Below return statement only happens when symbol is not found in globalscope
             return null;
         }

@@ -5,9 +5,9 @@ namespace Lanugage.Content.SymbolTable;
 public class Symbol
 {
     public readonly string Name;
-    public Types.Type Type { get; set; }
+    public Type Type { get; set; }
 
-    public Symbol(string name, Types.Type type)
+    public Symbol(string name, Type type)
     {
         Name = name;
         Type = type;
