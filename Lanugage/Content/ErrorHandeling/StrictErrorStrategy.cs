@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lanugage.Content
+namespace Lanugage.Content.ErrorHandeling
 {
     public class StrictErrorStrategy : DefaultErrorStrategy
     {

@@ -5,7 +5,7 @@ program: statementOrNewline* EOF;
 statementOrNewline: statement | newline;
 
 statement: 
-        (expression
+        (expr
     |   assignment
     |   loop
     |   print) newline;
@@ -14,57 +14,32 @@ newline: ('\n' | '\r')+;
 
 loop: whileLoop;
 
-whileLoop: WHILE expression LBRACKET (statementOrNewline)* RBRACKET;
+whileLoop: WHILE expr LBRACKET (statementOrNewline)* RBRACKET;
 WHILE: 'while';
 LBRACKET: '{';
 RBRACKET: '}';
 
-print: PRINT LPAREN expression RPAREN;
+print: PRINT LPAREN expr RPAREN;
 PRINT: 'print';
 LPAREN: '(';
 RPAREN: ')';
 
-expression
-    :   constant                            #constExp
-    |   ID                                  #idExp
-    |   LPAREN expression RPAREN            #parenExp
-    |   addOp                               #addExp
-    |   expression cmpOp expression         #cmpExp
-    |   expression binaryBoolOp expression  #binOpExp
-    |   NOT expression                      #notExp
+expr
+    :   LPAREN expr RPAREN                     #exprParen
+    |   constant                               #exprConst
+    |   ID                                     #exprId
+    |   left=expr op=(DIV|MULT) right=expr     #exprBinaryOp
+    |   left=expr op=(ADD|MINUS) right=expr    #exprBinaryOp    
+    |   NOT expr                               #exprNot
+    |   left=expr op=cmpOp right=expr          #exprCmp
+    |   left=expr op=AND right=expr            #exprAnd
+    |   left=expr op=OR right=expr             #exprOr
     ;
 
 cmpOp: '==' | '!=' | '<' | '>' | '>=' | '<=';
 
-// boolOp
-//     :
-//         not                    
-//     |   boolOp binaryBoolOp boolOp      
-//     |   bool                 
-//     |   LPAREN boolOp RPAREN
-//     |   expression  
-//     ;
-binaryBoolOp: AND | OR;
-AND: 'and';
-OR: 'or';
-NOT: '!';
-
-addOp: multOp ( ARITHMETIC multOp )*;
-
-ARITHMETIC: '+' | '-' | '*' | '/';
-
-multOp: atomExp (ARITHMETIC atomExp)*;
-// MULT: '*';
-// DIV: '/';
-
-atomExp
-    :    constant
-    |    ID
-    |    LPAREN addOp RPAREN
-    ;
-
 assignment
-    : ID ASSIGN expression;
+    : ID ASSIGN expr;
 
 ASSIGN: '=';
 
@@ -81,6 +56,15 @@ INT_TYPE: 'int';
 FLOAT_TYPE: 'float';
 BOOL_TYPE: 'bool';
 STRING_TYPE: 'string';
+AND: 'and';
+OR: 'or';
+NOT: '!';
+ADD: '+';
+MINUS: '-';
+
+MULT: '*';
+DIV: '/';
+
 
 ID: [a-zA-Z_][a-zA-Z_]*;
 

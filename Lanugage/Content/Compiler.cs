@@ -8,6 +8,8 @@ using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using Lanugage.Content;
+using Lanugage.Content.ErrorHandeling;
+using Lanugage.Content.SymbolTable;
 
 try
 {

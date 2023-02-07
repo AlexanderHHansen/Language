@@ -18,22 +18,22 @@ namespace Lanugage.Content
             PrintOutput = new StringBuilder();
         }
 
-        public override int? VisitExpression(SimpleParser.ExpressionContext context)
-        {
-            VisitChildren(context);
-            return null;
-        }
+        //public override int? VisitIdExp(SimpleParser.ExperIdContext context)
+        //{
+        //    Append(context.ID().GetText());
+        //    return null;
+        //}
 
-        public override int? VisitIdExp(SimpleParser.IdExpContext context)
+        public override int? VisitExprId(SimpleParser.ExprIdContext context)
         {
             Append(context.ID().GetText());
             return null;
         }
 
-        public override int? VisitParenExp(SimpleParser.ParenExpContext context)
+        public override int? VisitExprParen(SimpleParser.ExprParenContext context)
         {
             Append(context.LPAREN().GetText());
-            Visit(context.expression());
+            Visit(context.expr());
             Append(context.RPAREN().GetText());
             return null;
         }
@@ -56,7 +56,7 @@ namespace Lanugage.Content
         {
             Append("print");
             Append(context.LPAREN().GetText());
-            Visit(context.expression());
+            Visit(context.expr());
             Append(context.RPAREN().GetText());
             return null;
         }
@@ -64,7 +64,7 @@ namespace Lanugage.Content
         public override int? VisitWhileLoop(SimpleParser.WhileLoopContext context)
         {
             Append("while ");
-            Visit(context.expression());
+            Visit(context.expr());
             Append(context.LBRACKET().GetText());
             NewLine();
             foreach (var c in context.statementOrNewline())
@@ -79,9 +79,19 @@ namespace Lanugage.Content
             return null;
         }
 
-        public override int? VisitBinaryBoolOp(SimpleParser.BinaryBoolOpContext context)
+        public override int? VisitExprAnd(SimpleParser.ExprAndContext context)
         {
-            Append($" {context.GetText()} ");
+            Visit(context.left);
+            Append($" {context.op.Text} ");
+            Visit(context.right);
+            return null;
+        }
+
+        public override int? VisitExprOr(SimpleParser.ExprOrContext context)
+        {
+            Visit(context.left);
+            Append($" {context.op.Text} ");
+            Visit(context.right);
             return null;
         }
 
@@ -91,52 +101,32 @@ namespace Lanugage.Content
             return null;
         }
 
-
-        public override int? VisitCmpExp(SimpleParser.CmpExpContext context)
+        public override int? VisitExprCmp(SimpleParser.ExprCmpContext context)
         {
-            Append(context.GetText());
+            Visit(context.left);
+            Visit(context.op);
+            Visit(context.right);
             return null;
         }
 
-        public override int? VisitNotExp(SimpleParser.NotExpContext context)
+        public override int? VisitCmpOp(SimpleParser.CmpOpContext context)
+        {
+            Append($" {context.GetText()} ");
+            return null;
+        }
+
+        public override int? VisitExprNot(SimpleParser.ExprNotContext context)
         {
             Append(context.NOT().GetText());
-            Visit(context.expression());
+            Visit(context.expr());
             return null;
         }
 
-        public override int? VisitAddOp(SimpleParser.AddOpContext context)
+        public override int? VisitExprBinaryOp(SimpleParser.ExprBinaryOpContext context)
         {
-            Visit(context.multOp()[0]);
-            if (context.multOp().Length > 1)
-            {
-                for (int i = 1; i < context.multOp().Length; i++)
-                {
-                    Append(context.ARITHMETIC()[i-1].GetText());
-                    Visit(context.multOp()[i]);
-                }
-            }
-            return null;
-        }
-
-        public override int? VisitMultOp(SimpleParser.MultOpContext context)
-        {
-            //Console.WriteLine($"\nmult op atomCount: {context.atomExp().Length} | arithm count: {context.ARITHMETIC().Length}\n");
-            Visit(context.atomExp()[0]);
-            if (context.atomExp().Length > 1)
-            {
-                for (int i = 1; i < context.atomExp().Length; i++)
-                {
-                    Append(context.ARITHMETIC()[i - 1].GetText());
-                    Visit(context.atomExp()[i]);
-                }
-            }
-            return null;
-        }
-
-        public override int? VisitAtomExp(SimpleParser.AtomExpContext context)
-        {
-            VisitChildren(context);
+            Visit(context.left);
+            Append(context.op.Text);
+            Visit(context.right);
             return null;
         }
 
@@ -144,7 +134,7 @@ namespace Lanugage.Content
         {
             Append(context.ID().GetText());
             Append(" = ");
-            Visit(context.expression());
+            Visit(context.expr());
             return null;
         }
 

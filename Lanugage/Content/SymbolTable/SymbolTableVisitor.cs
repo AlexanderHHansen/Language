@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using Lanugage.Content.SymbolTable;
 
 namespace Lanugage.Content
 {
-    public partial class SymbolTableGenerator : SimpleBaseVisitor<object>
+    public partial class SymbolTableVisitor : SimpleBaseVisitor<object>
     {
         // https://pages.cs.wisc.edu/~fischer/cs536.s08/course.hold/html/NOTES/6.SYMBOL-TABLES.html
         // https://github.com/humleflue/P4/blob/master/ANTLR/src/Compiler/SymbolTableGenerator/SymbolTableGeneratorListener.java
@@ -16,18 +17,18 @@ namespace Lanugage.Content
         private ParseTreeProperty<Scope> Scopes;
         private Scope CurrentScope;
 
-        private List<Dictionary<string, Type>> Table;
+        private List<Dictionary<string, Types.Type>> Table;
 
-        public SymbolTableGenerator()
+        public SymbolTableVisitor()
         {
-            Table = new List<Dictionary<string, Type>>();
+            Table = new List<Dictionary<string, Types.Type>>();
             Scopes = new ParseTreeProperty<Scope>();
             CurrentScope = new Scope();
         }
 
         void EnterScope()
         {
-            Table.Append(new Dictionary<string, Type>());
+            Table.Append(new Dictionary<string, Types.Type>());
         }
 
         void ExitScope()

@@ -33,60 +33,68 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface ISimpleVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
-	/// Visit a parse tree produced by the <c>constExp</c>
-	/// labeled alternative in <see cref="SimpleParser.expression"/>.
+	/// Visit a parse tree produced by the <c>exprParen</c>
+	/// labeled alternative in <see cref="SimpleParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitConstExp([NotNull] SimpleParser.ConstExpContext context);
+	Result VisitExprParen([NotNull] SimpleParser.ExprParenContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by the <c>idExp</c>
-	/// labeled alternative in <see cref="SimpleParser.expression"/>.
+	/// Visit a parse tree produced by the <c>exprConst</c>
+	/// labeled alternative in <see cref="SimpleParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitIdExp([NotNull] SimpleParser.IdExpContext context);
+	Result VisitExprConst([NotNull] SimpleParser.ExprConstContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by the <c>parenExp</c>
-	/// labeled alternative in <see cref="SimpleParser.expression"/>.
+	/// Visit a parse tree produced by the <c>exprId</c>
+	/// labeled alternative in <see cref="SimpleParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitParenExp([NotNull] SimpleParser.ParenExpContext context);
+	Result VisitExprId([NotNull] SimpleParser.ExprIdContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by the <c>addExp</c>
-	/// labeled alternative in <see cref="SimpleParser.expression"/>.
+	/// Visit a parse tree produced by the <c>exprBinaryOp</c>
+	/// labeled alternative in <see cref="SimpleParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitAddExp([NotNull] SimpleParser.AddExpContext context);
+	Result VisitExprBinaryOp([NotNull] SimpleParser.ExprBinaryOpContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by the <c>cmpExp</c>
-	/// labeled alternative in <see cref="SimpleParser.expression"/>.
+	/// Visit a parse tree produced by the <c>exprNot</c>
+	/// labeled alternative in <see cref="SimpleParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitCmpExp([NotNull] SimpleParser.CmpExpContext context);
+	Result VisitExprNot([NotNull] SimpleParser.ExprNotContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by the <c>binOpExp</c>
-	/// labeled alternative in <see cref="SimpleParser.expression"/>.
+	/// Visit a parse tree produced by the <c>exprCmp</c>
+	/// labeled alternative in <see cref="SimpleParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitBinOpExp([NotNull] SimpleParser.BinOpExpContext context);
+	Result VisitExprCmp([NotNull] SimpleParser.ExprCmpContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by the <c>notExp</c>
-	/// labeled alternative in <see cref="SimpleParser.expression"/>.
+	/// Visit a parse tree produced by the <c>exprAnd</c>
+	/// labeled alternative in <see cref="SimpleParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitNotExp([NotNull] SimpleParser.NotExpContext context);
+	Result VisitExprAnd([NotNull] SimpleParser.ExprAndContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>exprOr</c>
+	/// labeled alternative in <see cref="SimpleParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitExprOr([NotNull] SimpleParser.ExprOrContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SimpleParser.program"/>.
@@ -138,11 +146,11 @@ public interface ISimpleVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitPrint([NotNull] SimpleParser.PrintContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SimpleParser.expression"/>.
+	/// Visit a parse tree produced by <see cref="SimpleParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitExpression([NotNull] SimpleParser.ExpressionContext context);
+	Result VisitExpr([NotNull] SimpleParser.ExprContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SimpleParser.cmpOp"/>.
@@ -150,34 +158,6 @@ public interface ISimpleVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitCmpOp([NotNull] SimpleParser.CmpOpContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="SimpleParser.binaryBoolOp"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitBinaryBoolOp([NotNull] SimpleParser.BinaryBoolOpContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="SimpleParser.addOp"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitAddOp([NotNull] SimpleParser.AddOpContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="SimpleParser.multOp"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitMultOp([NotNull] SimpleParser.MultOpContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="SimpleParser.atomExp"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitAtomExp([NotNull] SimpleParser.AtomExpContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SimpleParser.assignment"/>.
