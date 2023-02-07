@@ -156,6 +156,17 @@ public interface ISimpleListener : IParseTreeListener {
 	void ExitStatement([NotNull] SimpleParser.StatementContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="SimpleParser.newline"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNewline([NotNull] SimpleParser.NewlineContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="SimpleParser.newline"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNewline([NotNull] SimpleParser.NewlineContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="SimpleParser.loop"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

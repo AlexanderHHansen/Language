@@ -2,26 +2,19 @@
 
 program: statementOrNewline* EOF;
 
-statementOrNewline
-    :
-       statement 
-    |   NEWLINE  
-    ;
+statementOrNewline: statement | newline;
 
 statement: 
         (expression
     |   assignment
     |   loop
-    |   print) NEWLINE;
+    |   print) newline;
 
-NEWLINE: '\n' | '\r';
+newline: ('\n' | '\r')+;
 
-loop
-    : 
-        whileLoop
-    ;
+loop: whileLoop;
 
-whileLoop: WHILE expression LBRACKET (statement*) RBRACKET;
+whileLoop: WHILE expression LBRACKET (statementOrNewline)* RBRACKET;
 WHILE: 'while';
 LBRACKET: '{';
 RBRACKET: '}';
@@ -93,4 +86,4 @@ ID: [a-zA-Z_][a-zA-Z_]*;
 
 /* We're going to ignore all white space characters */
 WS  
-    :   (' ' | '\t') -> skip;
+    :   (' ' | '\t')+ -> skip;

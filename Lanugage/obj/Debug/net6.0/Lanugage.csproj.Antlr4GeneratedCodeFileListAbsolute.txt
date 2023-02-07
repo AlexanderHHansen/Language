@@ -1,6 +1,6 @@
-C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Lanugage\Lanugage\obj\Debug\net6.0\SimpleLexer.cs
-C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Lanugage\Lanugage\obj\Debug\net6.0\SimpleParser.cs
-C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Lanugage\Lanugage\obj\Debug\net6.0\SimpleListener.cs
-C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Lanugage\Lanugage\obj\Debug\net6.0\SimpleBaseListener.cs
-C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Lanugage\Lanugage\obj\Debug\net6.0\SimpleVisitor.cs
-C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Lanugage\Lanugage\obj\Debug\net6.0\SimpleBaseVisitor.cs
+C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Language\Lanugage\obj\Debug\net6.0\SimpleLexer.cs
+C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Language\Lanugage\obj\Debug\net6.0\SimpleParser.cs
+C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Language\Lanugage\obj\Debug\net6.0\SimpleListener.cs
+C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Language\Lanugage\obj\Debug\net6.0\SimpleBaseListener.cs
+C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Language\Lanugage\obj\Debug\net6.0\SimpleVisitor.cs
+C:\Users\ax111\Documents\PersonalDocuments\Coding\C#\Language\Lanugage\obj\Debug\net6.0\SimpleBaseVisitor.cs

@@ -52,11 +52,6 @@ namespace Lanugage.Content
             return null;
         }
 
-        //public override int? VisitNewline(SimpleParser.NewlineContext context)
-        //{
-        //    return base.VisitNewline(context);
-        //}
-
         public override int? VisitPrint(SimpleParser.PrintContext context)
         {
             Append("print");
@@ -71,10 +66,13 @@ namespace Lanugage.Content
             Append("while ");
             Visit(context.expression());
             Append(context.LBRACKET().GetText());
-            //NewLine();
-            foreach (var c in context.statement())
+            NewLine();
+            foreach (var c in context.statementOrNewline())
             {
-                Indent();
+                if (c.statement() != null)
+                {
+                    Indent();
+                }
                 Visit(c);
             }
             Append(context.RBRACKET().GetText());
@@ -129,7 +127,7 @@ namespace Lanugage.Content
             {
                 for (int i = 1; i < context.atomExp().Length; i++)
                 {
-                    Append(context.ARITHMETIC()[i-1].GetText());
+                    Append(context.ARITHMETIC()[i - 1].GetText());
                     Visit(context.atomExp()[i]);
                 }
             }

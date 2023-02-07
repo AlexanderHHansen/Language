@@ -180,6 +180,19 @@ public partial class SimpleBaseListener : ISimpleListener {
 	public virtual void ExitStatement([NotNull] SimpleParser.StatementContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="SimpleParser.newline"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNewline([NotNull] SimpleParser.NewlineContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="SimpleParser.newline"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNewline([NotNull] SimpleParser.NewlineContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="SimpleParser.loop"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
