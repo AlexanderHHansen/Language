@@ -125,6 +125,13 @@ public interface ISimpleVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitNewline([NotNull] SimpleParser.NewlineContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SimpleParser.decl"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDecl([NotNull] SimpleParser.DeclContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SimpleParser.loop"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

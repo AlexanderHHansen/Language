@@ -31,31 +31,32 @@ using DFA = Antlr4.Runtime.Dfa.DFA;
 [System.CLSCompliant(false)]
 public partial class SimpleParser : Parser {
 	public const int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, WHILE=9, 
-		LBRACKET=10, RBRACKET=11, PRINT=12, LPAREN=13, RPAREN=14, ASSIGN=15, INT=16, 
-		FLOAT=17, BOOL=18, STRING=19, NULL=20, INT_TYPE=21, FLOAT_TYPE=22, BOOL_TYPE=23, 
-		STRING_TYPE=24, AND=25, OR=26, NOT=27, ADD=28, MINUS=29, MULT=30, DIV=31, 
-		ID=32, WS=33;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, VAR=9, 
+		WHILE=10, LBRACKET=11, RBRACKET=12, PRINT=13, LPAREN=14, RPAREN=15, ASSIGN=16, 
+		INT=17, FLOAT=18, BOOL=19, STRING=20, NULL=21, INT_TYPE=22, FLOAT_TYPE=23, 
+		BOOL_TYPE=24, STRING_TYPE=25, AND=26, OR=27, NOT=28, ADD=29, MINUS=30, 
+		MULT=31, DIV=32, ID=33, WS=34;
 	public const int
 		RULE_program = 0, RULE_statementOrNewline = 1, RULE_statement = 2, RULE_newline = 3, 
-		RULE_loop = 4, RULE_whileLoop = 5, RULE_print = 6, RULE_expr = 7, RULE_cmpOp = 8, 
-		RULE_assignment = 9, RULE_constant = 10, RULE_type = 11;
+		RULE_decl = 4, RULE_loop = 5, RULE_whileLoop = 6, RULE_print = 7, RULE_expr = 8, 
+		RULE_cmpOp = 9, RULE_assignment = 10, RULE_constant = 11, RULE_type = 12;
 	public static readonly string[] ruleNames = {
-		"program", "statementOrNewline", "statement", "newline", "loop", "whileLoop", 
-		"print", "expr", "cmpOp", "assignment", "constant", "type"
+		"program", "statementOrNewline", "statement", "newline", "decl", "loop", 
+		"whileLoop", "print", "expr", "cmpOp", "assignment", "constant", "type"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'\n'", "'\r'", "'=='", "'!='", "'<'", "'>'", "'>='", "'<='", "'while'", 
-		"'{'", "'}'", "'print'", "'('", "')'", "'='", null, null, null, null, 
-		"'null'", "'int'", "'float'", "'bool'", "'string'", "'and'", "'or'", "'!'", 
-		"'+'", "'-'", "'*'", "'/'"
+		null, "'\n'", "'\r'", "'=='", "'!='", "'<'", "'>'", "'>='", "'<='", "'var'", 
+		"'while'", "'{'", "'}'", "'print'", "'('", "')'", "'='", null, null, null, 
+		null, "'null'", "'int'", "'float'", "'bool'", "'string'", "'and'", "'or'", 
+		"'!'", "'+'", "'-'", "'*'", "'/'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, null, null, null, null, null, null, "WHILE", "LBRACKET", 
-		"RBRACKET", "PRINT", "LPAREN", "RPAREN", "ASSIGN", "INT", "FLOAT", "BOOL", 
-		"STRING", "NULL", "INT_TYPE", "FLOAT_TYPE", "BOOL_TYPE", "STRING_TYPE", 
-		"AND", "OR", "NOT", "ADD", "MINUS", "MULT", "DIV", "ID", "WS"
+		null, null, null, null, null, null, null, null, null, "VAR", "WHILE", 
+		"LBRACKET", "RBRACKET", "PRINT", "LPAREN", "RPAREN", "ASSIGN", "INT", 
+		"FLOAT", "BOOL", "STRING", "NULL", "INT_TYPE", "FLOAT_TYPE", "BOOL_TYPE", 
+		"STRING_TYPE", "AND", "OR", "NOT", "ADD", "MINUS", "MULT", "DIV", "ID", 
+		"WS"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -143,20 +144,20 @@ public partial class SimpleParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 27;
+			State = 29;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << WHILE) | (1L << PRINT) | (1L << LPAREN) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRING) | (1L << NULL) | (1L << NOT) | (1L << ID))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << VAR) | (1L << WHILE) | (1L << PRINT) | (1L << LPAREN) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRING) | (1L << NULL) | (1L << NOT) | (1L << ID))) != 0)) {
 				{
 				{
-				State = 24; statementOrNewline();
+				State = 26; statementOrNewline();
 				}
 				}
-				State = 29;
+				State = 31;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 30; Match(Eof);
+			State = 32; Match(Eof);
 			}
 		}
 		catch (RecognitionException re) {
@@ -202,9 +203,10 @@ public partial class SimpleParser : Parser {
 		StatementOrNewlineContext _localctx = new StatementOrNewlineContext(_ctx, State);
 		EnterRule(_localctx, 2, RULE_statementOrNewline);
 		try {
-			State = 34;
+			State = 36;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
+			case VAR:
 			case WHILE:
 			case PRINT:
 			case LPAREN:
@@ -217,14 +219,14 @@ public partial class SimpleParser : Parser {
 			case ID:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 32; statement();
+				State = 34; statement();
 				}
 				break;
 			case T__0:
 			case T__1:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 33; newline();
+				State = 35; newline();
 				}
 				break;
 			default:
@@ -248,6 +250,9 @@ public partial class SimpleParser : Parser {
 		}
 		public ExprContext expr() {
 			return GetRuleContext<ExprContext>(0);
+		}
+		public DeclContext decl() {
+			return GetRuleContext<DeclContext>(0);
 		}
 		public AssignmentContext assignment() {
 			return GetRuleContext<AssignmentContext>(0);
@@ -285,34 +290,40 @@ public partial class SimpleParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 40;
+			State = 43;
 			_errHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(_input,2,_ctx) ) {
 			case 1:
 				{
-				State = 36; expr(0);
+				State = 38; expr(0);
 				}
 				break;
 
 			case 2:
 				{
-				State = 37; assignment();
+				State = 39; decl();
 				}
 				break;
 
 			case 3:
 				{
-				State = 38; loop();
+				State = 40; assignment();
 				}
 				break;
 
 			case 4:
 				{
-				State = 39; print();
+				State = 41; loop();
+				}
+				break;
+
+			case 5:
+				{
+				State = 42; print();
 				}
 				break;
 			}
-			State = 42; newline();
+			State = 45; newline();
 			}
 		}
 		catch (RecognitionException re) {
@@ -356,7 +367,7 @@ public partial class SimpleParser : Parser {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 45;
+			State = 48;
 			_errHandler.Sync(this);
 			_alt = 1;
 			do {
@@ -364,7 +375,7 @@ public partial class SimpleParser : Parser {
 				case 1:
 					{
 					{
-					State = 44;
+					State = 47;
 					_la = _input.La(1);
 					if ( !(_la==T__0 || _la==T__1) ) {
 					_errHandler.RecoverInline(this);
@@ -382,10 +393,61 @@ public partial class SimpleParser : Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				State = 47;
+				State = 50;
 				_errHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(_input,3,_ctx);
 			} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber );
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class DeclContext : ParserRuleContext {
+		public ITerminalNode VAR() { return GetToken(SimpleParser.VAR, 0); }
+		public ITerminalNode ID() { return GetToken(SimpleParser.ID, 0); }
+		public ITerminalNode ASSIGN() { return GetToken(SimpleParser.ASSIGN, 0); }
+		public ExprContext expr() {
+			return GetRuleContext<ExprContext>(0);
+		}
+		public DeclContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_decl; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			ISimpleListener typedListener = listener as ISimpleListener;
+			if (typedListener != null) typedListener.EnterDecl(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			ISimpleListener typedListener = listener as ISimpleListener;
+			if (typedListener != null) typedListener.ExitDecl(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISimpleVisitor<TResult> typedVisitor = visitor as ISimpleVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitDecl(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public DeclContext decl() {
+		DeclContext _localctx = new DeclContext(_ctx, State);
+		EnterRule(_localctx, 8, RULE_decl);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 52; Match(VAR);
+			State = 53; Match(ID);
+			State = 54; Match(ASSIGN);
+			State = 55; expr(0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -426,11 +488,11 @@ public partial class SimpleParser : Parser {
 	[RuleVersion(0)]
 	public LoopContext loop() {
 		LoopContext _localctx = new LoopContext(_ctx, State);
-		EnterRule(_localctx, 8, RULE_loop);
+		EnterRule(_localctx, 10, RULE_loop);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 49; whileLoop();
+			State = 57; whileLoop();
 			}
 		}
 		catch (RecognitionException re) {
@@ -480,28 +542,28 @@ public partial class SimpleParser : Parser {
 	[RuleVersion(0)]
 	public WhileLoopContext whileLoop() {
 		WhileLoopContext _localctx = new WhileLoopContext(_ctx, State);
-		EnterRule(_localctx, 10, RULE_whileLoop);
+		EnterRule(_localctx, 12, RULE_whileLoop);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 51; Match(WHILE);
-			State = 52; expr(0);
-			State = 53; Match(LBRACKET);
-			State = 57;
+			State = 59; Match(WHILE);
+			State = 60; expr(0);
+			State = 61; Match(LBRACKET);
+			State = 65;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << WHILE) | (1L << PRINT) | (1L << LPAREN) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRING) | (1L << NULL) | (1L << NOT) | (1L << ID))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << VAR) | (1L << WHILE) | (1L << PRINT) | (1L << LPAREN) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRING) | (1L << NULL) | (1L << NOT) | (1L << ID))) != 0)) {
 				{
 				{
-				State = 54; statementOrNewline();
+				State = 62; statementOrNewline();
 				}
 				}
-				State = 59;
+				State = 67;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 60; Match(RBRACKET);
+			State = 68; Match(RBRACKET);
 			}
 		}
 		catch (RecognitionException re) {
@@ -545,14 +607,14 @@ public partial class SimpleParser : Parser {
 	[RuleVersion(0)]
 	public PrintContext print() {
 		PrintContext _localctx = new PrintContext(_ctx, State);
-		EnterRule(_localctx, 12, RULE_print);
+		EnterRule(_localctx, 14, RULE_print);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 62; Match(PRINT);
-			State = 63; Match(LPAREN);
-			State = 64; expr(0);
-			State = 65; Match(RPAREN);
+			State = 70; Match(PRINT);
+			State = 71; Match(LPAREN);
+			State = 72; expr(0);
+			State = 73; Match(RPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -775,14 +837,14 @@ public partial class SimpleParser : Parser {
 		int _parentState = State;
 		ExprContext _localctx = new ExprContext(_ctx, _parentState);
 		ExprContext _prevctx = _localctx;
-		int _startState = 14;
-		EnterRecursionRule(_localctx, 14, RULE_expr, _p);
+		int _startState = 16;
+		EnterRecursionRule(_localctx, 16, RULE_expr, _p);
 		int _la;
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 76;
+			State = 84;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
 			case LPAREN:
@@ -791,9 +853,9 @@ public partial class SimpleParser : Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				State = 68; Match(LPAREN);
-				State = 69; expr(0);
-				State = 70; Match(RPAREN);
+				State = 76; Match(LPAREN);
+				State = 77; expr(0);
+				State = 78; Match(RPAREN);
 				}
 				break;
 			case INT:
@@ -805,7 +867,7 @@ public partial class SimpleParser : Parser {
 				_localctx = new ExprConstContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 72; constant();
+				State = 80; constant();
 				}
 				break;
 			case ID:
@@ -813,7 +875,7 @@ public partial class SimpleParser : Parser {
 				_localctx = new ExprIdContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 73; Match(ID);
+				State = 81; Match(ID);
 				}
 				break;
 			case NOT:
@@ -821,15 +883,15 @@ public partial class SimpleParser : Parser {
 				_localctx = new ExprNotContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 74; Match(NOT);
-				State = 75; expr(4);
+				State = 82; Match(NOT);
+				State = 83; expr(4);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.Lt(-1);
-			State = 96;
+			State = 104;
 			_errHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(_input,7,_ctx);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
@@ -837,7 +899,7 @@ public partial class SimpleParser : Parser {
 					if ( _parseListeners!=null ) TriggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					State = 94;
+					State = 102;
 					_errHandler.Sync(this);
 					switch ( Interpreter.AdaptivePredict(_input,6,_ctx) ) {
 					case 1:
@@ -845,9 +907,9 @@ public partial class SimpleParser : Parser {
 						_localctx = new ExprBinaryOpContext(new ExprContext(_parentctx, _parentState));
 						((ExprBinaryOpContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 78;
+						State = 86;
 						if (!(Precpred(_ctx, 6))) throw new FailedPredicateException(this, "Precpred(_ctx, 6)");
-						State = 79;
+						State = 87;
 						((ExprBinaryOpContext)_localctx).op = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==MULT || _la==DIV) ) {
@@ -860,7 +922,7 @@ public partial class SimpleParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 80; ((ExprBinaryOpContext)_localctx).right = expr(7);
+						State = 88; ((ExprBinaryOpContext)_localctx).right = expr(7);
 						}
 						break;
 
@@ -869,9 +931,9 @@ public partial class SimpleParser : Parser {
 						_localctx = new ExprBinaryOpContext(new ExprContext(_parentctx, _parentState));
 						((ExprBinaryOpContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 81;
+						State = 89;
 						if (!(Precpred(_ctx, 5))) throw new FailedPredicateException(this, "Precpred(_ctx, 5)");
-						State = 82;
+						State = 90;
 						((ExprBinaryOpContext)_localctx).op = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==ADD || _la==MINUS) ) {
@@ -884,7 +946,7 @@ public partial class SimpleParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 83; ((ExprBinaryOpContext)_localctx).right = expr(6);
+						State = 91; ((ExprBinaryOpContext)_localctx).right = expr(6);
 						}
 						break;
 
@@ -893,10 +955,10 @@ public partial class SimpleParser : Parser {
 						_localctx = new ExprCmpContext(new ExprContext(_parentctx, _parentState));
 						((ExprCmpContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 84;
+						State = 92;
 						if (!(Precpred(_ctx, 3))) throw new FailedPredicateException(this, "Precpred(_ctx, 3)");
-						State = 85; ((ExprCmpContext)_localctx).op = cmpOp();
-						State = 86; ((ExprCmpContext)_localctx).right = expr(4);
+						State = 93; ((ExprCmpContext)_localctx).op = cmpOp();
+						State = 94; ((ExprCmpContext)_localctx).right = expr(4);
 						}
 						break;
 
@@ -905,10 +967,10 @@ public partial class SimpleParser : Parser {
 						_localctx = new ExprAndContext(new ExprContext(_parentctx, _parentState));
 						((ExprAndContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 88;
+						State = 96;
 						if (!(Precpred(_ctx, 2))) throw new FailedPredicateException(this, "Precpred(_ctx, 2)");
-						State = 89; ((ExprAndContext)_localctx).op = Match(AND);
-						State = 90; ((ExprAndContext)_localctx).right = expr(3);
+						State = 97; ((ExprAndContext)_localctx).op = Match(AND);
+						State = 98; ((ExprAndContext)_localctx).right = expr(3);
 						}
 						break;
 
@@ -917,16 +979,16 @@ public partial class SimpleParser : Parser {
 						_localctx = new ExprOrContext(new ExprContext(_parentctx, _parentState));
 						((ExprOrContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 91;
+						State = 99;
 						if (!(Precpred(_ctx, 1))) throw new FailedPredicateException(this, "Precpred(_ctx, 1)");
-						State = 92; ((ExprOrContext)_localctx).op = Match(OR);
-						State = 93; ((ExprOrContext)_localctx).right = expr(2);
+						State = 100; ((ExprOrContext)_localctx).op = Match(OR);
+						State = 101; ((ExprOrContext)_localctx).right = expr(2);
 						}
 						break;
 					}
 					} 
 				}
-				State = 98;
+				State = 106;
 				_errHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(_input,7,_ctx);
 			}
@@ -967,12 +1029,12 @@ public partial class SimpleParser : Parser {
 	[RuleVersion(0)]
 	public CmpOpContext cmpOp() {
 		CmpOpContext _localctx = new CmpOpContext(_ctx, State);
-		EnterRule(_localctx, 16, RULE_cmpOp);
+		EnterRule(_localctx, 18, RULE_cmpOp);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 99;
+			State = 107;
 			_la = _input.La(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7))) != 0)) ) {
 			_errHandler.RecoverInline(this);
@@ -1026,13 +1088,13 @@ public partial class SimpleParser : Parser {
 	[RuleVersion(0)]
 	public AssignmentContext assignment() {
 		AssignmentContext _localctx = new AssignmentContext(_ctx, State);
-		EnterRule(_localctx, 18, RULE_assignment);
+		EnterRule(_localctx, 20, RULE_assignment);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 101; Match(ID);
-			State = 102; Match(ASSIGN);
-			State = 103; expr(0);
+			State = 109; Match(ID);
+			State = 110; Match(ASSIGN);
+			State = 111; expr(0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1075,12 +1137,12 @@ public partial class SimpleParser : Parser {
 	[RuleVersion(0)]
 	public ConstantContext constant() {
 		ConstantContext _localctx = new ConstantContext(_ctx, State);
-		EnterRule(_localctx, 20, RULE_constant);
+		EnterRule(_localctx, 22, RULE_constant);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 105;
+			State = 113;
 			_la = _input.La(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRING) | (1L << NULL))) != 0)) ) {
 			_errHandler.RecoverInline(this);
@@ -1133,12 +1195,12 @@ public partial class SimpleParser : Parser {
 	[RuleVersion(0)]
 	public TypeContext type() {
 		TypeContext _localctx = new TypeContext(_ctx, State);
-		EnterRule(_localctx, 22, RULE_type);
+		EnterRule(_localctx, 24, RULE_type);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 107;
+			State = 115;
 			_la = _input.La(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT_TYPE) | (1L << FLOAT_TYPE) | (1L << BOOL_TYPE) | (1L << STRING_TYPE))) != 0)) ) {
 			_errHandler.RecoverInline(this);
@@ -1165,7 +1227,7 @@ public partial class SimpleParser : Parser {
 
 	public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 7: return expr_sempred((ExprContext)_localctx, predIndex);
+		case 8: return expr_sempred((ExprContext)_localctx, predIndex);
 		}
 		return true;
 	}
@@ -1185,44 +1247,46 @@ public partial class SimpleParser : Parser {
 	}
 
 	public static readonly string _serializedATN =
-		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3#p\x4\x2\t\x2\x4"+
+		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3$x\x4\x2\t\x2\x4"+
 		"\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a\t\a\x4\b\t\b\x4\t\t\t\x4"+
-		"\n\t\n\x4\v\t\v\x4\f\t\f\x4\r\t\r\x3\x2\a\x2\x1C\n\x2\f\x2\xE\x2\x1F\v"+
-		"\x2\x3\x2\x3\x2\x3\x3\x3\x3\x5\x3%\n\x3\x3\x4\x3\x4\x3\x4\x3\x4\x5\x4"+
-		"+\n\x4\x3\x4\x3\x4\x3\x5\x6\x5\x30\n\x5\r\x5\xE\x5\x31\x3\x6\x3\x6\x3"+
-		"\a\x3\a\x3\a\x3\a\a\a:\n\a\f\a\xE\a=\v\a\x3\a\x3\a\x3\b\x3\b\x3\b\x3\b"+
-		"\x3\b\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x5\tO\n\t\x3\t\x3\t"+
-		"\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t"+
-		"\a\t\x61\n\t\f\t\xE\t\x64\v\t\x3\n\x3\n\x3\v\x3\v\x3\v\x3\v\x3\f\x3\f"+
-		"\x3\r\x3\r\x3\r\x2\x2\x3\x10\xE\x2\x2\x4\x2\x6\x2\b\x2\n\x2\f\x2\xE\x2"+
-		"\x10\x2\x12\x2\x14\x2\x16\x2\x18\x2\x2\b\x3\x2\x3\x4\x3\x2 !\x3\x2\x1E"+
-		"\x1F\x3\x2\x5\n\x3\x2\x12\x16\x3\x2\x17\x1Ar\x2\x1D\x3\x2\x2\x2\x4$\x3"+
-		"\x2\x2\x2\x6*\x3\x2\x2\x2\b/\x3\x2\x2\x2\n\x33\x3\x2\x2\x2\f\x35\x3\x2"+
-		"\x2\x2\xE@\x3\x2\x2\x2\x10N\x3\x2\x2\x2\x12\x65\x3\x2\x2\x2\x14g\x3\x2"+
-		"\x2\x2\x16k\x3\x2\x2\x2\x18m\x3\x2\x2\x2\x1A\x1C\x5\x4\x3\x2\x1B\x1A\x3"+
-		"\x2\x2\x2\x1C\x1F\x3\x2\x2\x2\x1D\x1B\x3\x2\x2\x2\x1D\x1E\x3\x2\x2\x2"+
-		"\x1E \x3\x2\x2\x2\x1F\x1D\x3\x2\x2\x2 !\a\x2\x2\x3!\x3\x3\x2\x2\x2\"%"+
-		"\x5\x6\x4\x2#%\x5\b\x5\x2$\"\x3\x2\x2\x2$#\x3\x2\x2\x2%\x5\x3\x2\x2\x2"+
-		"&+\x5\x10\t\x2\'+\x5\x14\v\x2(+\x5\n\x6\x2)+\x5\xE\b\x2*&\x3\x2\x2\x2"+
-		"*\'\x3\x2\x2\x2*(\x3\x2\x2\x2*)\x3\x2\x2\x2+,\x3\x2\x2\x2,-\x5\b\x5\x2"+
-		"-\a\x3\x2\x2\x2.\x30\t\x2\x2\x2/.\x3\x2\x2\x2\x30\x31\x3\x2\x2\x2\x31"+
-		"/\x3\x2\x2\x2\x31\x32\x3\x2\x2\x2\x32\t\x3\x2\x2\x2\x33\x34\x5\f\a\x2"+
-		"\x34\v\x3\x2\x2\x2\x35\x36\a\v\x2\x2\x36\x37\x5\x10\t\x2\x37;\a\f\x2\x2"+
-		"\x38:\x5\x4\x3\x2\x39\x38\x3\x2\x2\x2:=\x3\x2\x2\x2;\x39\x3\x2\x2\x2;"+
-		"<\x3\x2\x2\x2<>\x3\x2\x2\x2=;\x3\x2\x2\x2>?\a\r\x2\x2?\r\x3\x2\x2\x2@"+
-		"\x41\a\xE\x2\x2\x41\x42\a\xF\x2\x2\x42\x43\x5\x10\t\x2\x43\x44\a\x10\x2"+
-		"\x2\x44\xF\x3\x2\x2\x2\x45\x46\b\t\x1\x2\x46G\a\xF\x2\x2GH\x5\x10\t\x2"+
-		"HI\a\x10\x2\x2IO\x3\x2\x2\x2JO\x5\x16\f\x2KO\a\"\x2\x2LM\a\x1D\x2\x2M"+
-		"O\x5\x10\t\x6N\x45\x3\x2\x2\x2NJ\x3\x2\x2\x2NK\x3\x2\x2\x2NL\x3\x2\x2"+
-		"\x2O\x62\x3\x2\x2\x2PQ\f\b\x2\x2QR\t\x3\x2\x2R\x61\x5\x10\t\tST\f\a\x2"+
-		"\x2TU\t\x4\x2\x2U\x61\x5\x10\t\bVW\f\x5\x2\x2WX\x5\x12\n\x2XY\x5\x10\t"+
-		"\x6Y\x61\x3\x2\x2\x2Z[\f\x4\x2\x2[\\\a\x1B\x2\x2\\\x61\x5\x10\t\x5]^\f"+
-		"\x3\x2\x2^_\a\x1C\x2\x2_\x61\x5\x10\t\x4`P\x3\x2\x2\x2`S\x3\x2\x2\x2`"+
-		"V\x3\x2\x2\x2`Z\x3\x2\x2\x2`]\x3\x2\x2\x2\x61\x64\x3\x2\x2\x2\x62`\x3"+
-		"\x2\x2\x2\x62\x63\x3\x2\x2\x2\x63\x11\x3\x2\x2\x2\x64\x62\x3\x2\x2\x2"+
-		"\x65\x66\t\x5\x2\x2\x66\x13\x3\x2\x2\x2gh\a\"\x2\x2hi\a\x11\x2\x2ij\x5"+
-		"\x10\t\x2j\x15\x3\x2\x2\x2kl\t\x6\x2\x2l\x17\x3\x2\x2\x2mn\t\a\x2\x2n"+
-		"\x19\x3\x2\x2\x2\n\x1D$*\x31;N`\x62";
+		"\n\t\n\x4\v\t\v\x4\f\t\f\x4\r\t\r\x4\xE\t\xE\x3\x2\a\x2\x1E\n\x2\f\x2"+
+		"\xE\x2!\v\x2\x3\x2\x3\x2\x3\x3\x3\x3\x5\x3\'\n\x3\x3\x4\x3\x4\x3\x4\x3"+
+		"\x4\x3\x4\x5\x4.\n\x4\x3\x4\x3\x4\x3\x5\x6\x5\x33\n\x5\r\x5\xE\x5\x34"+
+		"\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\a\x3\a\x3\b\x3\b\x3\b\x3\b\a\b\x42\n"+
+		"\b\f\b\xE\b\x45\v\b\x3\b\x3\b\x3\t\x3\t\x3\t\x3\t\x3\t\x3\n\x3\n\x3\n"+
+		"\x3\n\x3\n\x3\n\x3\n\x3\n\x3\n\x5\nW\n\n\x3\n\x3\n\x3\n\x3\n\x3\n\x3\n"+
+		"\x3\n\x3\n\x3\n\x3\n\x3\n\x3\n\x3\n\x3\n\x3\n\x3\n\a\ni\n\n\f\n\xE\nl"+
+		"\v\n\x3\v\x3\v\x3\f\x3\f\x3\f\x3\f\x3\r\x3\r\x3\xE\x3\xE\x3\xE\x2\x2\x3"+
+		"\x12\xF\x2\x2\x4\x2\x6\x2\b\x2\n\x2\f\x2\xE\x2\x10\x2\x12\x2\x14\x2\x16"+
+		"\x2\x18\x2\x1A\x2\x2\b\x3\x2\x3\x4\x3\x2!\"\x3\x2\x1F \x3\x2\x5\n\x3\x2"+
+		"\x13\x17\x3\x2\x18\x1Bz\x2\x1F\x3\x2\x2\x2\x4&\x3\x2\x2\x2\x6-\x3\x2\x2"+
+		"\x2\b\x32\x3\x2\x2\x2\n\x36\x3\x2\x2\x2\f;\x3\x2\x2\x2\xE=\x3\x2\x2\x2"+
+		"\x10H\x3\x2\x2\x2\x12V\x3\x2\x2\x2\x14m\x3\x2\x2\x2\x16o\x3\x2\x2\x2\x18"+
+		"s\x3\x2\x2\x2\x1Au\x3\x2\x2\x2\x1C\x1E\x5\x4\x3\x2\x1D\x1C\x3\x2\x2\x2"+
+		"\x1E!\x3\x2\x2\x2\x1F\x1D\x3\x2\x2\x2\x1F \x3\x2\x2\x2 \"\x3\x2\x2\x2"+
+		"!\x1F\x3\x2\x2\x2\"#\a\x2\x2\x3#\x3\x3\x2\x2\x2$\'\x5\x6\x4\x2%\'\x5\b"+
+		"\x5\x2&$\x3\x2\x2\x2&%\x3\x2\x2\x2\'\x5\x3\x2\x2\x2(.\x5\x12\n\x2).\x5"+
+		"\n\x6\x2*.\x5\x16\f\x2+.\x5\f\a\x2,.\x5\x10\t\x2-(\x3\x2\x2\x2-)\x3\x2"+
+		"\x2\x2-*\x3\x2\x2\x2-+\x3\x2\x2\x2-,\x3\x2\x2\x2./\x3\x2\x2\x2/\x30\x5"+
+		"\b\x5\x2\x30\a\x3\x2\x2\x2\x31\x33\t\x2\x2\x2\x32\x31\x3\x2\x2\x2\x33"+
+		"\x34\x3\x2\x2\x2\x34\x32\x3\x2\x2\x2\x34\x35\x3\x2\x2\x2\x35\t\x3\x2\x2"+
+		"\x2\x36\x37\a\v\x2\x2\x37\x38\a#\x2\x2\x38\x39\a\x12\x2\x2\x39:\x5\x12"+
+		"\n\x2:\v\x3\x2\x2\x2;<\x5\xE\b\x2<\r\x3\x2\x2\x2=>\a\f\x2\x2>?\x5\x12"+
+		"\n\x2?\x43\a\r\x2\x2@\x42\x5\x4\x3\x2\x41@\x3\x2\x2\x2\x42\x45\x3\x2\x2"+
+		"\x2\x43\x41\x3\x2\x2\x2\x43\x44\x3\x2\x2\x2\x44\x46\x3\x2\x2\x2\x45\x43"+
+		"\x3\x2\x2\x2\x46G\a\xE\x2\x2G\xF\x3\x2\x2\x2HI\a\xF\x2\x2IJ\a\x10\x2\x2"+
+		"JK\x5\x12\n\x2KL\a\x11\x2\x2L\x11\x3\x2\x2\x2MN\b\n\x1\x2NO\a\x10\x2\x2"+
+		"OP\x5\x12\n\x2PQ\a\x11\x2\x2QW\x3\x2\x2\x2RW\x5\x18\r\x2SW\a#\x2\x2TU"+
+		"\a\x1E\x2\x2UW\x5\x12\n\x6VM\x3\x2\x2\x2VR\x3\x2\x2\x2VS\x3\x2\x2\x2V"+
+		"T\x3\x2\x2\x2Wj\x3\x2\x2\x2XY\f\b\x2\x2YZ\t\x3\x2\x2Zi\x5\x12\n\t[\\\f"+
+		"\a\x2\x2\\]\t\x4\x2\x2]i\x5\x12\n\b^_\f\x5\x2\x2_`\x5\x14\v\x2`\x61\x5"+
+		"\x12\n\x6\x61i\x3\x2\x2\x2\x62\x63\f\x4\x2\x2\x63\x64\a\x1C\x2\x2\x64"+
+		"i\x5\x12\n\x5\x65\x66\f\x3\x2\x2\x66g\a\x1D\x2\x2gi\x5\x12\n\x4hX\x3\x2"+
+		"\x2\x2h[\x3\x2\x2\x2h^\x3\x2\x2\x2h\x62\x3\x2\x2\x2h\x65\x3\x2\x2\x2i"+
+		"l\x3\x2\x2\x2jh\x3\x2\x2\x2jk\x3\x2\x2\x2k\x13\x3\x2\x2\x2lj\x3\x2\x2"+
+		"\x2mn\t\x5\x2\x2n\x15\x3\x2\x2\x2op\a#\x2\x2pq\a\x12\x2\x2qr\x5\x12\n"+
+		"\x2r\x17\x3\x2\x2\x2st\t\x6\x2\x2t\x19\x3\x2\x2\x2uv\t\a\x2\x2v\x1B\x3"+
+		"\x2\x2\x2\n\x1F&-\x34\x43Vhj";
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }

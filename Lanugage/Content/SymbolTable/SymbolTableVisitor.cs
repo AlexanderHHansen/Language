@@ -48,14 +48,24 @@ namespace Lanugage.Content
                 int lineNumber = context.start.Line;
                 throw new UndeclaredVariableException($"{name} on line {lineNumber} is not defined!");
             }
-            Scopes.Put(context, CurrentScope);
+            ContextToScopeAssociation(context, CurrentScope);
             return null;
         }
 
         public override object VisitAssignment(SimpleParser.AssignmentContext context)
         {
             Visit(context.expr());
-            string name = context.ID().GetText();
+            //string name = context.ID().GetText();
+            Symbol s = new Symbol(context.ID().GetText(), null);
+            //CurrentScope.DefineSymbol(s);
+            ContextToScopeAssociation(context, CurrentScope);
+            return null;
+        }
+
+        public override object? VisitDecl(SimpleParser.DeclContext context)
+        {
+            Visit(context.expr());
+            //string name = context.ID().GetText();
             Symbol s = new Symbol(context.ID().GetText(), null);
             CurrentScope.DefineSymbol(s);
             ContextToScopeAssociation(context, CurrentScope);

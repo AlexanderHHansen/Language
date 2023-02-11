@@ -61,13 +61,13 @@ namespace Lanugage.Content
 
             if (type == SimpleLexer.BOOL)
             {
-                Append( $"printf(\"{format}\", bool_to_str(");
+                Append( $"printf(\"{format}\\n\", bool_to_str(");
                 Visit(context.expr());
                 AppendWithNewline($"))");
             }
             else
             {
-                Append($"printf(\"{format}\", ");
+                Append($"printf(\"{format}\\n\", ");
                 Visit(context.expr());
                 Append($")");
             }
@@ -89,6 +89,13 @@ namespace Lanugage.Content
         }
 
         public override object VisitAssignment(SimpleParser.AssignmentContext context)
+        {
+            Append($"{context.ID().GetText()} = ");
+            Visit(context.expr());
+            return null;
+        }
+
+        public override object VisitDecl(SimpleParser.DeclContext context)
         {
             string idName = context.ID().GetText();
             var scope = Scopes.Get(context);

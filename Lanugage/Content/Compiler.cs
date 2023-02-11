@@ -11,8 +11,8 @@ using Lanugage.Content;
 using Lanugage.Content.ErrorHandeling;
 using Lanugage.Content.Exceptions;
 
-//try
-//{
+try
+{
     var filename = "Content/SimpleScript.ss";
     var fileContents = File.ReadAllText(filename);
     var inputStream = new AntlrInputStream(fileContents);
@@ -44,20 +44,20 @@ using Lanugage.Content.Exceptions;
     var codeGenerator = new CCodeGenerator(updatedScopeMap, updatedScope, "", typeChecker);
     codeGenerator.Visit(context);
     codeGenerator.WriteToFile();
-//}
-//catch (ParseCanceledException e)
-//{
-//    Console.WriteLine(e.Message);
-//}
-//catch (UndeclaredVariableException e)
-//{
-//    Console.WriteLine(e.Message);
-//}
-//catch (TypeCheckException e)
-//{
-//    Console.WriteLine(e.Message);
-//}
-//catch (Exception e)
-//{
-//    Console.WriteLine(e);
-//}
+}
+catch (ParseCanceledException e)
+{
+    Console.WriteLine(e.Message);
+}
+catch (UndeclaredVariableException e)
+{
+    Console.WriteLine(e.Message);
+}
+catch (TypeCheckException e)
+{
+    Console.WriteLine(e.Message);
+}
+catch (Exception e)
+{
+    Console.WriteLine(e);
+}

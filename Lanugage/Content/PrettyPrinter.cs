@@ -144,6 +144,15 @@ namespace Lanugage.Content
             return null;
         }
 
+        public override int? VisitDecl(SimpleParser.DeclContext context)
+        {
+            Append("var ");
+            Append(context.ID().GetText());
+            Append(" = ");
+            Visit(context.expr());
+            return null;
+        }
+
         private void Indent() => PrintOutput.Append(_indent);
         private void NewLine() => PrintOutput.Append(_newLine);
         private void Append(string text) => PrintOutput.Append(text);

@@ -6,12 +6,14 @@ statementOrNewline: statement | newline;
 
 statement: 
         (expr
+    |   decl
     |   assignment
     |   loop
     |   print) newline;
 
 newline: ('\n' | '\r')+;
-
+decl: VAR ID ASSIGN expr;
+VAR: 'var';
 loop: whileLoop;
 
 whileLoop: WHILE expr LBRACKET (statementOrNewline)* RBRACKET;

@@ -29,22 +29,31 @@ namespace Lanugage.Content
             string idName = context.ID().GetText();
             var scope = Scopes.Get(context);
             var symbol = scope.GetSymbol(idName);
-            if (symbol.Type == null) // ie. declaration
-            {   // update exprType for variable
-                var type = Visit(context.expr());
-                scope.UpdateSymbolType(idName, type);
-                return type;
-            }
-            else // assignment of new value to existing variable 
+            //if (symbol.Type == null) // ie. declaration
+            //{   // update exprType for variable
+            //    var type = Visit(context.expr());
+            //    scope.UpdateSymbolType(idName, type);
+            //    return type;
+            //}
+            //else // assignment of new value to existing variable 
+            //{
+            int type = (int)Visit(context.expr());
+            if (!AssignmentCompatibility((int)symbol.Type, type))
             {
-                int type = Visit(context.expr());
-                if (!AssignmentCompatibility((int)symbol.Type, type))
-                {
-                    throw new TypeCheckException($"Invalid assignment on line: {context.start.Line}\n Cannot assign a value of type {TypeToString(type)} to {TypeToString((int) symbol.Type)}");
-                }
+                throw new TypeCheckException($"Invalid assignment on line: {context.start.Line}\n Cannot assign a value of type {TypeToString(type)} to {TypeToString((int) symbol.Type)}");
             }
+            //}
 
             return (int)symbol.Type; 
+        }
+
+        public override int VisitDecl(SimpleParser.DeclContext context)
+        {
+            string idName = context.ID().GetText();
+            var scope = Scopes.Get(context);
+            var type = Visit(context.expr());
+            scope.UpdateSymbolType(idName, type);
+            return type;
         }
 
         public override int VisitExprParen(SimpleParser.ExprParenContext context)
