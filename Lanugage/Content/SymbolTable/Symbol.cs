@@ -4,10 +4,10 @@ namespace Lanugage.Content.SymbolTable;
 
 public class Symbol
 {
-    public readonly string Name;
-    public Type Type { get; set; }
+    public string Name { get; set; }
+    public int? Type { get; set; }
 
-    public Symbol(string name, Type type)
+    public Symbol(string name, int? type)
     {
         Name = name;
         Type = type;

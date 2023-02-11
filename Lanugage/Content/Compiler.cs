@@ -11,8 +11,8 @@ using Lanugage.Content;
 using Lanugage.Content.ErrorHandeling;
 using Lanugage.Content.Exceptions;
 
-try
-{
+//try
+//{
     var filename = "Content/SimpleScript.ss";
     var fileContents = File.ReadAllText(filename);
     var inputStream = new AntlrInputStream(fileContents);
@@ -34,16 +34,30 @@ try
 
     var symbolTable = new SymbolTableVisitor();
     symbolTable.Visit(context);
-}
-catch (ParseCanceledException e)
-{
-    Console.WriteLine(e.Message);
-}
-catch (UndeclaredVariableException e)
-{
-    Console.WriteLine(e.Message);
-}
-catch (Exception e)
-{
-    Console.WriteLine(e);
-}
+
+    var typeChecker = new TypeCheckingVisitor(symbolTable.Scopes, symbolTable.CurrentScope);
+    var updatedScopeMap = typeChecker.Scopes;
+    var updatedScope = typeChecker.CurrentScope;
+
+    typeChecker.Visit(context);
+
+    var codeGenerator = new CCodeGenerator(updatedScopeMap, updatedScope, "", typeChecker);
+    codeGenerator.Visit(context);
+    codeGenerator.WriteToFile();
+//}
+//catch (ParseCanceledException e)
+//{
+//    Console.WriteLine(e.Message);
+//}
+//catch (UndeclaredVariableException e)
+//{
+//    Console.WriteLine(e.Message);
+//}
+//catch (TypeCheckException e)
+//{
+//    Console.WriteLine(e.Message);
+//}
+//catch (Exception e)
+//{
+//    Console.WriteLine(e);
+//}

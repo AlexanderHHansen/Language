@@ -17,8 +17,8 @@ namespace Lanugage.Content
         // https://github.com/humleflue/P4/blob/master/ANTLR/src/Compiler/SymbolTableGenerator/SymbolTableGeneratorListener.java
         // use ErrorHandler instead of throwing exceptions
 
-        private ParseTreeProperty<IScope> Scopes; // Only used for functions...
-        private IScope CurrentScope { get; set; }
+        public ParseTreeProperty<IScope> Scopes; // Only used for functions...
+        public IScope CurrentScope { get; set; }
 
 
         public SymbolTableVisitor()
@@ -48,15 +48,17 @@ namespace Lanugage.Content
                 int lineNumber = context.start.Line;
                 throw new UndeclaredVariableException($"{name} on line {lineNumber} is not defined!");
             }
-
+            Scopes.Put(context, CurrentScope);
             return null;
         }
 
         public override object VisitAssignment(SimpleParser.AssignmentContext context)
         {
             Visit(context.expr());
-            Symbol s = new Symbol(context.ID().GetText(), context.ID().GetType());
+            string name = context.ID().GetText();
+            Symbol s = new Symbol(context.ID().GetText(), null);
             CurrentScope.DefineSymbol(s);
+            ContextToScopeAssociation(context, CurrentScope);
             return null;
         }
 
@@ -71,9 +73,9 @@ namespace Lanugage.Content
             CurrentScope = CurrentScope.EnclosingScope;
         }
 
-        //private void ContextToScopeAssociation(ParserRuleContext ctx, IScope s)
-        //{
-        //    Scopes.Put(ctx, s);
-        //}
+        private void ContextToScopeAssociation(ParserRuleContext ctx, IScope s)
+        {
+            Scopes.Put(ctx, s);
+        }
     }
 }

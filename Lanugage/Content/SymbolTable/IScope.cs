@@ -12,6 +12,8 @@ namespace Lanugage.Content.SymbolTable
 
         void DefineSymbol(Symbol symbol);
 
-        Symbol? GetSymbol(String name);
+        void UpdateSymbolType(string name, int type);
+
+        Symbol? GetSymbol(string name);
     }
 }

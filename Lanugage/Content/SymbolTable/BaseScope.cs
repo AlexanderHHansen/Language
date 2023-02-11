@@ -32,6 +32,13 @@ namespace Lanugage.Content.SymbolTable
             Symbols.Add(symbol.Name, symbol);
         }
 
+        public void UpdateSymbolType(string name, int type)
+        {
+            Symbol s = Symbols[name];
+            s.Type = type;
+            Symbols[name] = s;
+        }
+
         public Symbol? GetSymbol(string name)
         {
             try
@@ -44,6 +51,7 @@ namespace Lanugage.Content.SymbolTable
                 // symbol not in scope
                 // if not here, check any enclosing scope
                 if (EnclosingScope != null) return EnclosingScope.GetSymbol(name);
+                return null;
             }
             
             // Below return statement only happens when symbol is not found in globalscope
